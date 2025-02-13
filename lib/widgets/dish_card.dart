@@ -200,13 +200,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       // Bottom Navigation Bar avec trois icônes
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifications'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const [
+      //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+      //     BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifications'),
+      //     BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+      //   ],
+      // ),
     );
   }
 }

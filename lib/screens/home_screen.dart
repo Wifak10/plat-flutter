@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   List<Category> filteredCategories = [];
-  // List<Dish> filteredDishes = [];
+  List<Dish> filteredDishes = [];
   bool hasSearched = false; // Indique si une recherche a été effectuée
 
 
@@ -61,20 +61,20 @@ class _HomeScreenState extends State<HomeScreen> {
     print("Logout");
   }
 
-  void _search() {
-    setState(() {
-      String query = _searchController.text.toLowerCase();
-      hasSearched = query.isNotEmpty;
+  // void _search() {
+  //   setState(() {
+  //     String query = _searchController.text.toLowerCase();
+  //     hasSearched = query.isNotEmpty;
 
-      if (hasSearched) {
-        filteredCategories = categories
-            .where((category) => category.title.toLowerCase().contains(query))
-            .toList();
-      } else {
-        filteredCategories = List.from(categories); // Réafficher toute la liste
-      }
-    });
-  }
+  //     if (hasSearched) {
+  //       filteredCategories = categories
+  //           .where((category) => category.title.toLowerCase().contains(query))
+  //           .toList();
+  //     } else {
+  //       filteredCategories = List.from(categories); // Réafficher toute la liste
+  //     }
+  //   });
+  // }
 
 
 
