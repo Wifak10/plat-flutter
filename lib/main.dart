@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'screens/breakfast_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(BreakfastScreen());
 }
 
-class MyApp extends StatelessWidget {
+class BreakfastScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
