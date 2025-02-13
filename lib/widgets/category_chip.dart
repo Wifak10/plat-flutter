@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CategoryChip extends StatelessWidget {
   final String label;
@@ -8,8 +9,16 @@ class CategoryChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Chip(
-      label: Text(label),
-      backgroundColor: Colors.purple[100],
+      backgroundColor: const Color.fromARGB(255, 135, 124, 246),
+      label: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SvgPicture.asset('icons/plate.svg', width: 24, height: 24),
+          SizedBox(height: 4),
+          Text(label),
+        ],
+      ),
+      
     );
   }
 }

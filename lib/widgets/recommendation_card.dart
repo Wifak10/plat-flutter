@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 class RecommendationCard extends StatelessWidget {
   final String imageUrl;
   final String title;
@@ -15,7 +15,7 @@ class RecommendationCard extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            Image.asset(imageUrl, width: 60, height: 60),
+           SvgPicture.asset(imageUrl, width: 60, height: 60),
             SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
