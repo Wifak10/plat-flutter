@@ -46,7 +46,7 @@ class BreakfastScreen extends StatelessWidget {
             Text('Recommendation for Diet',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
             SizedBox(height: 10),
             RecommendationCard(
-              imageUrl: 'assets/icons/pancake.jpg',
+              imageUrl: 'assets/icons/plate.svg',
               title: 'Pancake',
               details: 'Pancake is a flat cake, often thin and round, prepared from a starch-based batter that may contain eggs, milk, and butter and cooked on a hot surface such as a griddle or frying pan, often frying with oil or butter.'
             ),
