@@ -14,7 +14,7 @@ class BreakfastScreen extends StatelessWidget {
       appBar: AppBar(
 
         title: Text('Breakfast Screen'),
-        backgroundColor: Colors.pinkAccent,
+        backgroundColor: Colors.grey,
 
       ),
 
