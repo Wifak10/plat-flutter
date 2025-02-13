@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class CategoryChip extends StatelessWidget {
   final String label;
 
-  CategoryChip({required this.label});
+  CategoryChip({required this.label, required String iconPath, required MaterialColor iconColor});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +16,7 @@ class CategoryChip extends StatelessWidget {
           SvgPicture.asset('icons/plate.svg', width: 24, height: 24),
           SizedBox(height: 4),
           Text(label),
+          
         ],
       ),
       

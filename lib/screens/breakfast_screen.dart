@@ -1,62 +1,72 @@
-
-// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plat/widgets/category_chip.dart';
 import 'package:plat/widgets/recommendation_card.dart';
 
 class BreakfastScreen extends StatelessWidget {
-
   @override
-
   Widget build(BuildContext context) {
-
     return Scaffold(
-
       appBar: AppBar(
-
         title: Text('Breakfast Screen'),
         backgroundColor: Colors.pinkAccent,
-
       ),
-
       body: Padding(
-
         padding: const EdgeInsets.all(16.0),
-        child:Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
+            // TextField pour la recherche
             TextField(
               decoration: InputDecoration(
-                hintText: 'search Pancake',
-                border: OutlineInputBorder()
+                hintText: 'Search Pancake',
+                border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20,),
-            Text('Category',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+            SizedBox(height: 20),
+
+            // Section "Category"
+            Text(
+              'Category',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
             SizedBox(height: 10),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CategoryChip(label: 'Salad'),
-                CategoryChip(label: 'Cake'),
-                CategoryChip(label: 'Pie')
+                CategoryChip(
+                  label: 'Salad',
+                  iconPath: 'assets/icons/salad.svg',
+                  iconColor: Colors.purple, // Color violet pour "Salad"
+                ),
+                CategoryChip(
+                  label: 'Cake',
+                  iconPath: 'assets/icons/pancakes.svg',
+                  iconColor: Colors.blue, // Couleur bleue pour "Cake"
+                ),
+                CategoryChip(
+                  label: 'Pie',
+                  iconPath: 'assets/icons/pie.svg',
+                  iconColor: Colors.purple, // Couleur violette pour "Pie"
+                ),
               ],
             ),
             SizedBox(height: 20),
-            Text('Recommendation for Diet',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+
+            // Section "Recommendation for Diet"
+            Text(
+              'Recommendation for Diet',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
             SizedBox(height: 10),
             RecommendationCard(
-              imageUrl: 'icons/plate.svg',
+              imageUrl: 'assets/icons/plate.svg', // Assurez-vous d'utiliser l'image SVG correcte
               title: 'Pancake',
-              details: 'Pancake is a flat cake, often thin and round, prepared from a starch-based batter that may contain eggs, milk, and butter and cooked on a hot surface such as a griddle or frying pan, often frying with oil or butter.'
+              details:
+                  'Pancake is a flat cake, often thin and round.',
             ),
           ],
-        ) ,
-
+        ),
       ),
-
     );
-
   }
-
 }

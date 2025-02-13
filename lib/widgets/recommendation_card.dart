@@ -15,17 +15,17 @@ class RecommendationCard extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-           SvgPicture.asset(imageUrl, width: 60, height: 60),
+           SvgPicture.asset(imageUrl, width: 30, height: 30),
             SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(title, style: TextStyle(fontSize: 18)),
                 Text(details),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text('View'),
-                ),
+                // ElevatedButton(
+                //   onPressed: () {},
+                //   child: Text('View'),
+                // ),
               ],
             ),
           ],
