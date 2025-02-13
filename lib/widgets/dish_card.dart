@@ -1,12 +1,13 @@
+import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../models/category.dart';
 import '../models/dish.dart';
+import 'package:flip_card/flip_card.dart';
 // import '../widgets/search_bar.dart' as custom;
 import '../widgets/category_card.dart';
 import '../widgets/dish_card.dart';
 // import 'package:flutter/widgets/dish_card.dart'; // Replace 'your_project' with the actual project name
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -199,7 +200,9 @@ class DishCard extends StatelessWidget { // Modifié pour être un Widget Statel
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onView,
-      child: Card(
+      child: FlipCard(
+        flipOnTouch: true,
+      front: Card(
         color: dish.color,
         elevation: 3,
         shape: RoundedRectangleBorder(
@@ -239,6 +242,45 @@ class DishCard extends StatelessWidget { // Modifié pour être un Widget Statel
           ),
         ),
       ),
+      back: Card(
+        color:dish.color ,
+        elevation: 3,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: SizedBox(
+          width: 160,
+          height: 270,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: SvgPicture.asset(
+                    dish.iconPath,
+                    width: 40,
+                    height: 40,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                const SizedBox(height: 25),
+                Text(
+                  dish.description,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontFamily: "Poppins",
+                    fontWeight: FontWeight.w400
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    )
     );
   }
 }
