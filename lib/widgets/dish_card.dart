@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../models/category.dart';
 import '../models/dish.dart';
-import 'package:flip_card/flip_card.dart';
 import '../widgets/category_card.dart';
 import '../widgets/dish_card.dart';
 
@@ -15,19 +14,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    _searchController.addListener(() {
-      if (_searchController.text.isEmpty) {
-        setState(() {
-          hasSearched = false;
-          filteredCategories = List.from(categories);
-        });
-      }
-    });
-  }
-
   final TextEditingController _searchController = TextEditingController();
 
   // Données fictives pour les catégories
@@ -50,23 +36,35 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Category> filteredCategories = [];
   bool hasSearched = false; // Indique si une recherche a été effectuée
 
-  void _logout() {
-    print("Logout");
+  @override
+  void initState() {
+    super.initState();
+    filteredCategories = List.from(categories); // Initialiser filteredCategories avec toutes les catégories
+    _searchController.addListener(() {
+      _search(); // Lancer la recherche chaque fois que la valeur change
+    });
   }
 
+  // Fonction de recherche
   void _search() {
     setState(() {
       String query = _searchController.text.toLowerCase();
       hasSearched = query.isNotEmpty;
 
       if (hasSearched) {
+        // Filtrer les catégories en fonction de la recherche
         filteredCategories = categories
             .where((category) => category.title.toLowerCase().contains(query))
             .toList();
       } else {
-        filteredCategories = List.from(categories); // Réafficher toute la liste
+        // Réinitialiser à toutes les catégories
+        filteredCategories = List.from(categories);
       }
     });
+  }
+
+  void _logout() {
+    print("Logout");
   }
 
   @override
@@ -134,15 +132,15 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
-                itemCount: hasSearched ? filteredCategories.length : categories.length,
+                itemCount: filteredCategories.length, // Utiliser filteredCategories
                 itemBuilder: (context, index) {
-                  final category = hasSearched ? filteredCategories[index] : categories[index];
+                  final category = filteredCategories[index]; // Utiliser filteredCategories
                   return Padding(
                     padding: const EdgeInsets.only(right: 20.0),
                     child: CategoryCard(
                       category: category,
                       onTap: () {
-                        print("Tapped on ${categories[index].title}");
+                        print("Tapped on ${category.title}");
                       },
                     ),
                   );
@@ -199,14 +197,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      // Bottom Navigation Bar avec trois icônes
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: const [
-      //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifications'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
-      //   ],
-      // ),
     );
   }
 }

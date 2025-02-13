@@ -3,10 +3,7 @@ import 'package:plat/models/dish.dart';
 import 'package:plat/widgets/category_card.dart';
 import 'package:plat/widgets/dish_card.dart';
 import '../models/category.dart';
-// import '../models/dish.dart';
-// import '../widgets/search_bar.dart' as custom;
-import '../widgets/category_card.dart';
-// import '../widgets/dish_card.dart';
+import '../widgets/search_bar.dart' as custom;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,19 +14,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  @override
-  void initState() {
-    super.initState();
-    _searchController.addListener(() {
-      if (_searchController.text.isEmpty) {
-        setState(() {
-          hasSearched = false;
-          filteredCategories = List.from(categories);
-        });
-      }
-    });
-  }
-
   final TextEditingController _searchController = TextEditingController();
 
   // Données fictives pour les catégories
@@ -39,44 +23,58 @@ class _HomeScreenState extends State<HomeScreen> {
     Category(title: 'Pie', iconPath: 'icons/pie.svg', color: const Color.fromARGB(255, 179, 181, 241)),
     Category(title: 'Pancakes', iconPath: 'icons/pancakes.svg', color: const Color.fromARGB(255, 179, 181, 241)),
     Category(title: 'Honey-Pancake', iconPath: 'icons/honey-pancakes.svg', color: const Color.fromARGB(255, 179, 181, 241)),
-    // Ajouter d'autres catégories si nécessaire
   ];
 
- // Données fictives pour les plats
+  // Données fictives pour les plats
   final List<Dish> dishes = [
     Dish(name: 'Honey Pancake', description: 'Easy | 30mins | 180kCal', iconPath: 'icons/honey-pancakes.svg', color: const Color.fromARGB(255, 200, 223, 242)),
     Dish(name: 'Canai Bread', description: 'Easy | 20mins | 230kCal', iconPath: 'icons/canai-bread.svg', color: const Color.fromARGB(255, 243, 189, 226)),
     Dish(name: 'Veggie', description: 'Easy | 30mins | 180kCal', iconPath: 'icons/orange-snacks.svg', color: const Color.fromARGB(255, 162, 209, 247)),
     Dish(name: 'BBQ Chicken', description: 'Easy | 30mins | 180kCal', iconPath: 'icons/blueberry-pancake.svg', color: const Color.fromARGB(255, 224, 194, 215)),
-    // Ajouter d'autres plats si nécessaire
   ];
 
   List<Category> filteredCategories = [];
   List<Dish> filteredDishes = [];
   bool hasSearched = false; // Indique si une recherche a été effectuée
 
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(() {
+      if (_searchController.text.isEmpty) {
+        setState(() {
+          hasSearched = false;
+          filteredCategories = List.from(categories);
+          filteredDishes = List.from(dishes); // Réinitialiser la liste des plats
+        });
+      }
+    });
+  }
 
   void _logout() {
     // Logique de déconnexion ici
     print("Logout");
   }
 
-  // void _search() {
-  //   setState(() {
-  //     String query = _searchController.text.toLowerCase();
-  //     hasSearched = query.isNotEmpty;
+  void _search() {
+    setState(() {
+      String query = _searchController.text.toLowerCase();
+      hasSearched = query.isNotEmpty;
 
-  //     if (hasSearched) {
-  //       filteredCategories = categories
-  //           .where((category) => category.title.toLowerCase().contains(query))
-  //           .toList();
-  //     } else {
-  //       filteredCategories = List.from(categories); // Réafficher toute la liste
-  //     }
-  //   });
-  // }
+      if (hasSearched) {
+        filteredCategories = categories
+            .where((category) => category.title.toLowerCase().contains(query))
+            .toList();
 
-
+        filteredDishes = dishes
+            .where((dish) => dish.name.toLowerCase().contains(query))
+            .toList();
+      } else {
+        filteredCategories = List.from(categories); // Réafficher toutes les catégories
+        filteredDishes = List.from(dishes); // Réafficher tous les plats
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             // Barre de recherche avec bouton
-            // custom.SearchBar(controller: SearchController(), onSearch: search),
+            custom.SearchBar(controller: _searchController, onSearch: _search),
             const SizedBox(height: 40),
             // Titre Category
             const Align(
@@ -115,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontSize: 22, 
                   fontFamily: "Poppins",
                   fontWeight: FontWeight.w700
-                  ),
+                ),
               ),
             ),
             const SizedBox(height: 10),
@@ -125,15 +123,15 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(), // Ajout d'un effet de rebond
-                itemCount: categories.length,
+                itemCount: filteredCategories.length, // Affiche les catégories filtrées
                 itemBuilder: (context, index) {
-                  final category = hasSearched ? filteredCategories[index] : categories[index];
+                  final category = filteredCategories[index];
                   return Padding(
                     padding: const EdgeInsets.only(right: 20.0),
                     child: CategoryCard(
-                      category: categories[index],
+                      category: category,
                       onTap: () {
-                        print("Tapped on ${categories[index].title}");
+                        print("Tapped on ${category.title}");
                       },
                     ),
                   );
@@ -159,14 +157,14 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 290,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: dishes.length,
+                itemCount: filteredDishes.length, // Affiche les plats filtrés
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 15.0),
                     child: DishCard(
-                      dish: dishes[index],
+                      dish: filteredDishes[index],
                       onView: () {
-                        print("View dish: ${dishes[index].name}");
+                        print("View dish: ${filteredDishes[index].name}");
                       },
                     ),
                   );
@@ -176,16 +174,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      // Bottom Navigation Bar avec trois icônes
-      // bottomNavigationBar: BottomNavigationBar(
-      //   // currentIndex: _selectedIndex,
-      //   // onTap: _onItemTapped,
-      //   items: const [
-      //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifications'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
-      //   ],
-      // ),
     );
   }
 }
