@@ -13,24 +13,54 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   final TextEditingController _searchController = TextEditingController();
 
   // Données fictives pour les catégories
   final List<Category> categories = [
-    Category(title: 'Salad', iconPath: 'icons/plate.svg', color: const Color.fromARGB(255, 179, 181, 241)),
-    Category(title: 'Cake', iconPath: 'icons/honey-pancakes.svg', color: const Color.fromARGB(255, 122, 126, 242)),
-    Category(title: 'Pie', iconPath: 'icons/pie.svg', color: const Color.fromARGB(255, 179, 181, 241)),
-    Category(title: 'Pancakes', iconPath: 'icons/pancakes.svg', color: const Color.fromARGB(255, 179, 181, 241)),
-    Category(title: 'Honey-Pancake', iconPath: 'icons/honey-pancakes.svg', color: const Color.fromARGB(255, 179, 181, 241)),
+    Category(
+        title: 'Salad',
+        iconPath: 'icons/plate.svg',
+        color: const Color.fromARGB(255, 179, 181, 241)),
+    Category(
+        title: 'Cake',
+        iconPath: 'icons/honey-pancakes.svg',
+        color: const Color.fromARGB(255, 122, 126, 242)),
+    Category(
+        title: 'Pie',
+        iconPath: 'icons/pie.svg',
+        color: const Color.fromARGB(255, 179, 181, 241)),
+    Category(
+        title: 'Pancakes',
+        iconPath: 'icons/pancakes.svg',
+        color: const Color.fromARGB(255, 179, 181, 241)),
+    Category(
+        title: 'Honey-Pancake',
+        iconPath: 'icons/honey-pancakes.svg',
+        color: const Color.fromARGB(255, 179, 181, 241)),
   ];
 
   // Données fictives pour les plats
   final List<Dish> dishes = [
-    Dish(name: 'Honey Pancake', description: 'Easy | 30mins | 180kCal', iconPath: 'icons/honey-pancakes.svg', color: const Color.fromARGB(255, 200, 223, 242)),
-    Dish(name: 'Canai Bread', description: 'Easy | 20mins | 230kCal', iconPath: 'icons/canai-bread.svg', color: const Color.fromARGB(255, 243, 189, 226)),
-    Dish(name: 'Veggie', description: 'Easy | 30mins | 180kCal', iconPath: 'icons/orange-snacks.svg', color: const Color.fromARGB(255, 162, 209, 247)),
-    Dish(name: 'BBQ Chicken', description: 'Easy | 30mins | 180kCal', iconPath: 'icons/blueberry-pancake.svg', color: const Color.fromARGB(255, 224, 194, 215)),
+    Dish(
+        name: 'Honey Pancake',
+        description: 'Easy | 30mins | 180kCal',
+        iconPath: 'icons/honey-pancakes.svg',
+        color: const Color.fromARGB(255, 200, 223, 242)),
+    Dish(
+        name: 'Canai Bread',
+        description: 'Easy | 20mins | 230kCal',
+        iconPath: 'icons/canai-bread.svg',
+        color: const Color.fromARGB(255, 243, 189, 226)),
+    Dish(
+        name: 'Veggie',
+        description: 'Easy | 30mins | 180kCal',
+        iconPath: 'icons/orange-snacks.svg',
+        color: const Color.fromARGB(255, 162, 209, 247)),
+    Dish(
+        name: 'BBQ Chicken',
+        description: 'Easy | 30mins | 180kCal',
+        iconPath: 'icons/blueberry-pancake.svg',
+        color: const Color.fromARGB(255, 224, 194, 215)),
   ];
 
   List<Category> filteredCategories = [];
@@ -45,7 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           hasSearched = false;
           filteredCategories = List.from(categories);
-          filteredDishes = List.from(dishes); // Réinitialiser la liste des plats
+          filteredDishes =
+              List.from(dishes); // Réinitialiser la liste des plats
         });
       }
     });
@@ -70,7 +101,8 @@ class _HomeScreenState extends State<HomeScreen> {
             .where((dish) => dish.name.toLowerCase().contains(query))
             .toList();
       } else {
-        filteredCategories = List.from(categories); // Réafficher toutes les catégories
+        filteredCategories =
+            List.from(categories); // Réafficher toutes les catégories
         filteredDishes = List.from(dishes); // Réafficher tous les plats
       }
     });
@@ -81,12 +113,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 233, 231, 231),
-        title: const Text('BREAKFAST',
-        style: TextStyle(
-          fontWeight: FontWeight.w700,
-          fontFamily: "Poppins",
-          fontSize: 22,
-        ),
+        title: const Text(
+          'BREAKFAST',
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontFamily: "Poppins",
+            fontSize: 22,
+          ),
         ),
         centerTitle: true,
         actions: [
@@ -110,10 +143,9 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text(
                 'Category',
                 style: TextStyle(
-                  fontSize: 22, 
-                  fontFamily: "Poppins",
-                  fontWeight: FontWeight.w700
-                ),
+                    fontSize: 22,
+                    fontFamily: "Poppins",
+                    fontWeight: FontWeight.w700),
               ),
             ),
             const SizedBox(height: 10),
@@ -122,8 +154,10 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 200,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                physics: const BouncingScrollPhysics(), // Ajout d'un effet de rebond
-                itemCount: filteredCategories.length, // Affiche les catégories filtrées
+                physics:
+                    const BouncingScrollPhysics(), // Ajout d'un effet de rebond
+                itemCount: filteredCategories
+                    .length, // Affiche les catégories filtrées
                 itemBuilder: (context, index) {
                   final category = filteredCategories[index];
                   return Padding(
@@ -145,10 +179,9 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text(
                 'Recommandations de plats',
                 style: TextStyle(
-                  fontSize: 22, 
-                  fontFamily: "Poppins",
-                  fontWeight: FontWeight.w700
-                ),
+                    fontSize: 22,
+                    fontFamily: "Poppins",
+                    fontWeight: FontWeight.w700),
               ),
             ),
             const SizedBox(height: 15),
